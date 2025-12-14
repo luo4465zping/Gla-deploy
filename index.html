@@ -3,133 +3,391 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的导航页</title>
+    <title>绿色地球 - 环保导航</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-image: url('http://files.unn.pp.ua/download/pictures%2Fbackground.jpg');
-            background-size: cover;
+            font-family: 'Noto Sans SC', Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 25%, #3d7a4f 50%, #4a9960 75%, #5cb870 100%);
             background-attachment: fixed;
-            background-position: center;
             margin: 0;
             padding: 20px;
-            color: #333;
+            color: #2d5a3d;
+            position: relative;
+            overflow-x: hidden;
         }
-        
-        .header {
-            color: #fff;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(144, 238, 144, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(34, 139, 34, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
-        
-        .search-container {
-            padding: 3rem;
+
+        .floating-leaves {
+            position: fixed;
             width: 100%;
-            max-width: 500px;
-            margin: 0 auto 20px;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
         }
-        
+
+        .leaf {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .leaf:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 18s; }
+        .leaf:nth-child(2) { left: 25%; animation-delay: 3s; animation-duration: 20s; }
+        .leaf:nth-child(3) { left: 40%; animation-delay: 6s; animation-duration: 16s; }
+        .leaf:nth-child(4) { left: 55%; animation-delay: 9s; animation-duration: 22s; }
+        .leaf:nth-child(5) { left: 70%; animation-delay: 2s; animation-duration: 19s; }
+        .leaf:nth-child(6) { left: 85%; animation-delay: 5s; animation-duration: 17s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(-100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-section {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .eco-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .eco-title i {
+            color: #90EE90;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .eco-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .eco-tips {
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 15px 25px;
+            margin: 1.5rem auto;
+            max-width: 600px;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .eco-tips i {
+            font-size: 1.5rem;
+            color: #90EE90;
+        }
+
+        .eco-tips p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .search-container {
+            padding: 1rem;
+            width: 100%;
+            max-width: 550px;
+            margin: 0 auto 30px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            color: #3d7a4f;
+            font-size: 1.1rem;
+        }
+
         .search-box {
             width: 100%;
-            padding: 15px 18px;
-            font-size: 20px;
+            padding: 18px 25px 18px 50px;
+            font-size: 16px;
             border: none;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
             outline: none;
-            background-color: rgba(255, 255, 255, 0.7);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            color: #2d5a3d;
         }
-        
+
+        .search-box::placeholder {
+            color: #6b9b7a;
+        }
+
+        .search-box:focus {
+            box-shadow: 0 8px 40px rgba(144, 238, 144, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 25px auto 15px;
+            max-width: 1000px;
+            padding-left: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(255,255,255,0.3), transparent);
+        }
+
         .container {
             max-width: 1000px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            gap: 12px;
+            gap: 15px;
+            padding-bottom: 80px;
         }
-        
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .container { grid-template-columns: repeat(3, 1fr); }
+            .eco-title { font-size: 1.8rem; }
+        }
+
         .link-item {
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
-            padding: 12px;
-            transition: all 0.2s;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.08));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 18px 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
-            height: 60px;
+            min-height: 90px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            border: 1px solid rgba(255,255,255,0.15);
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .link-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .link-item:hover::before {
+            left: 100%;
+        }
+
         .link-item:hover {
-            background-color: rgba(255, 255, 255, 0.85);
-            transform: translateY(-2px);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(145deg, rgba(255,255,255,0.35), rgba(255,255,255,0.2));
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+            border-color: rgba(144, 238, 144, 0.5);
         }
-        
+
         .link-item a {
             text-decoration: none;
-            color: #333;
+            color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 100%;
             height: 100%;
             justify-content: center;
+            gap: 10px;
         }
-        
+
         .link-icon {
-            width: 24px;
-            height: 24px;
-            margin-bottom: 8px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            transition: transform 0.3s ease;
         }
-        
+
+        .link-item:hover .link-icon {
+            transform: scale(1.15);
+        }
+
+        .link-item i.link-icon {
+            font-size: 28px;
+            width: auto;
+            height: auto;
+            color: #90EE90;
+        }
+
         .link-text {
-            font-size: 14px;
+            font-size: 13px;
             text-align: center;
             word-break: break-word;
             max-width: 100%;
+            font-weight: 400;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            line-height: 1.3;
         }
+
         .foot_marker {
             position: fixed;
-            bottom: 10px;
+            bottom: 0;
             left: 0;
             right: 0;
             width: 100%;
             text-align: center;
             font-size: 12px;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.9);
             z-index: 999;
-            padding: 10px 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+            padding: 15px 0;
+            background: linear-gradient(to top, rgba(29, 71, 42, 0.95), rgba(29, 71, 42, 0.7), transparent);
+        }
+
+        .foot_marker .eco-message {
+            margin-bottom: 5px;
+            font-size: 11px;
+            color: #90EE90;
+            letter-spacing: 1px;
         }
 
         .foot_marker a {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.9);
             text-decoration: none;
-            transition: color 0.3s ease;
-            padding: 5px 10px;
-            border-radius: 15px;
+            transition: all 0.3s ease;
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
         }
 
         .foot_marker a:hover {
-            color: #4388e0;
-        }        
+            color: #90EE90;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .nature-decoration {
+            position: fixed;
+            bottom: 60px;
+            right: 20px;
+            font-size: 4rem;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .nature-decoration-left {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            font-size: 3rem;
+            opacity: 0.15;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
-    <div class="search-container">
-        <form action="https://www.google.com/search" method="get" target="_blank">
-            <input class="search-box" type="text" name="q" placeholder="Google 搜索...">
-        </form>
+    <div class="floating-leaves">
+        <div class="leaf">🍃</div>
+        <div class="leaf">🌿</div>
+        <div class="leaf">🍀</div>
+        <div class="leaf">🌱</div>
+        <div class="leaf">🍃</div>
+        <div class="leaf">🌿</div>
     </div>
-    
-    <div class="container">
+
+    <div class="nature-decoration">🌳</div>
+    <div class="nature-decoration-left">🌲</div>
+
+    <div class="main-content">
+        <div class="header-section">
+            <h1 class="eco-title">
+                <i class="fas fa-leaf"></i>
+                绿色地球
+                <i class="fas fa-seedling"></i>
+            </h1>
+            <p class="eco-subtitle">PROTECT OUR PLANET · 守护我们的家园</p>
+            
+            <div class="eco-tips">
+                <i class="fas fa-lightbulb"></i>
+                <p>💡 每日环保小贴士：减少一次性塑料使用，选择可重复使用的购物袋和水杯，从小事做起保护地球！</p>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <form action="https://www.google.com/search" method="get" target="_blank">
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input class="search-box" type="text" name="q" placeholder="搜索你想了解的环保知识...">
+                </div>
+            </form>
+        </div>
+
+        <div class="section-title"><i class="fas fa-compass"></i> 常用导航</div>
+        <div class="container">
         <!-- 第一行 -->
         <div class="link-item">
             <a href="https://www.google.com" target="_blank">
@@ -283,9 +541,13 @@
             </a> 
         </div>
 
+    </div>
+
         <!-- 版权 -->
         <div class="foot_marker">
-        <a href="https://github.com/eooce" target="_blank">Powered by eooce</a>
+            <div class="eco-message">🌍 保护环境，人人有责 · 让地球更美好</div>
+            <a href="https://github.com/eooce" target="_blank">Powered by eooce</a>
+        </div>
     </div>
 
     <script>
@@ -293,10 +555,37 @@
             const icon = item.querySelector('img.link-icon');
             if (icon) {
                 icon.onerror = function() {
-                    this.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJzNC40NzcgMTAgMTAgMTAgMTAtNC40NzcgMTAtMTBTMTcuNTIzIDIgMTIgMnptMCAyYzQuNDE4IDAgOCAzLjU4MiA4IDhzLTMuNTgyIDgtOCA4LTgtMy41ODItOC04IDMuNTgyLTggOC04eiIgZmlsbD0iIzMzMyIvPjwvc3ZnPg==';
+                    this.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJzNC40NzcgMTAgMTAgMTAgMTAtNC40NzcgMTAtMTBTMTcuNTIzIDIgMTIgMnptMCAyYzQuNDE4IDAgOCAzLjU4MiA4IDhzLTMuNTgyIDgtOCA4LTgtMy41ODItOC04IDMuNTgyLTggOC04eiIgZmlsbD0iIzkwRUU5MCIvPjwvc3ZnPg==';
                 }
             }
         });
+
+        // 环保小贴士轮播
+        const ecoTips = [
+            "💡 减少一次性塑料使用，选择可重复使用的购物袋和水杯！",
+            "🚲 短途出行选择步行或骑行，减少碳排放！",
+            "💧 节约用水，随手关闭水龙头！",
+            "🌱 多种植绿色植物，净化空气！",
+            "♻️ 垃圾分类，让资源循环利用！",
+            "🔌 随手关灯，节约能源！",
+            "📦 减少网购过度包装，选择环保包装！",
+            "🍃 使用电子文档，减少纸张浪费！"
+        ];
+        
+        let tipIndex = 0;
+        const tipElement = document.querySelector('.eco-tips p');
+        
+        setInterval(() => {
+            tipIndex = (tipIndex + 1) % ecoTips.length;
+            tipElement.style.opacity = 0;
+            setTimeout(() => {
+                tipElement.textContent = ecoTips[tipIndex];
+                tipElement.style.opacity = 1;
+            }, 300);
+        }, 8000);
+
+        // 添加过渡效果
+        tipElement.style.transition = 'opacity 0.3s ease';
     </script>
 </body>
 </html>
